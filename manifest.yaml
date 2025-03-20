@@ -1,6 +1,6 @@
 version: 0.0.1
 type: plugin
-author: tdse
+author: highwayns
 name: ngs-llm
 label:
   en_US: ngs-llm
