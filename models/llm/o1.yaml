@@ -42,8 +42,11 @@ parameter_rules:
     options:
       - text
       - json_object
+      - json_schema
+  - name: json_schema
+    use_template: json_schema
 pricing:
-  input: '15.00'
-  output: '60.00'
-  unit: '0.000001'
+  input: "15.00"
+  output: "60.00"
+  unit: "0.000001"
   currency: USD
