@@ -1,6 +1,6 @@
-model: claude-3-5-sonnet-20241022
+model: claude-v3.5sonnet
 label:
-  en_US: claude-3-5-sonnet-20241022
+  en_US: claude-v3.5sonnet
 model_type: llm
 features:
   - agent-thought

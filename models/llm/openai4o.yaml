@@ -1,7 +1,7 @@
-model: gpt-4o
+model: openai4o
 label:
-  zh_Hans: gpt-4o
-  en_US: gpt-4o
+  zh_Hans: openai4o
+  en_US: openai4o
 model_type: llm
 features:
   - multi-tool-call

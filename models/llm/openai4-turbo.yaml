@@ -1,7 +1,7 @@
-model: gpt-4-turbo
+model: openai4-turbo
 label:
-  zh_Hans: gpt-4-turbo
-  en_US: gpt-4-turbo
+  zh_Hans: openai4-turbo
+  en_US: openai4-turbo
 model_type: llm
 features:
   - multi-tool-call
