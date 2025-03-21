@@ -1,6 +1,6 @@
-model: gemini-2.0-flash-exp
+model: gemini-2.0-flash
 label:
-  en_US: Gemini 2.0 Flash Exp
+  en_US: Gemini 2.0 Flash
 model_type: llm
 features:
   - agent-thought
