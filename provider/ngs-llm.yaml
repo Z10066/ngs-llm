@@ -94,7 +94,7 @@ models:
       - "models/text_embedding/*.yaml"
 extra:
   python:
-    provider_source: provider/openai.py
+    provider_source: provider/ngs-llm.py
     model_sources:
       - "models/llm/llm.py"
       - "models/text_embedding/text_embedding.py"
