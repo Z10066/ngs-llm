@@ -65,6 +65,12 @@ if you are not sure about the structure.
 
 
 class OpenAILargeLanguageModel(_CommonNgsLlm, LargeLanguageModel):
+    def __init__(self, base_url: str, model: str, api_key: str, **kwargs):
+        super().__init__(**kwargs)
+        self.base_url = base_url
+        self.model = model
+        self.api_key = api_key
+
     """
     Model class for OpenAI large language model.
     """
@@ -345,7 +351,7 @@ class OpenAILargeLanguageModel(_CommonNgsLlm, LargeLanguageModel):
         try:
             # transform credentials to kwargs for model instance
             credentials_kwargs = self._to_credential_kwargs(credentials)
-            client = OpenAI(**credentials_kwargs)
+            client = OpenAI(base_url=f"https://{self.base_url}/ngs2-papi/v1/openai/deployments/{self.model}", api_key=self.api_key)
 
             # handle fine tune remote models
             base_model = model
@@ -398,7 +404,7 @@ class OpenAILargeLanguageModel(_CommonNgsLlm, LargeLanguageModel):
 
         # transform credentials to kwargs for model instance
         credentials_kwargs = self._to_credential_kwargs(credentials)
-        client = OpenAI(**credentials_kwargs)
+        client = OpenAI(base_url=f"https://{self.base_url}/ngs2-papi/v1/openai/deployments/{self.model}", api_key=self.api_key)
 
         # get all remote models
         remote_models = client.models.list()
@@ -468,7 +474,7 @@ class OpenAILargeLanguageModel(_CommonNgsLlm, LargeLanguageModel):
         credentials_kwargs = self._to_credential_kwargs(credentials)
 
         # init model client
-        client = OpenAI(**credentials_kwargs)
+        client = OpenAI(base_url=f"https://{self.base_url}/ngs2-papi/v1/openai/deployments/{self.model}", api_key=self.api_key)
 
         extra_model_kwargs = {}
 
@@ -669,7 +675,7 @@ class OpenAILargeLanguageModel(_CommonNgsLlm, LargeLanguageModel):
         credentials_kwargs = self._to_credential_kwargs(credentials)
 
         # init model client
-        client = OpenAI(**credentials_kwargs)
+        client = OpenAI(base_url=f"https://{self.base_url}/ngs2-papi/v1/openai/deployments/{self.model}", api_key=self.api_key)
 
         response_format = model_parameters.get("response_format")
         if response_format:
