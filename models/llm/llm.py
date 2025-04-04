@@ -5,8 +5,11 @@ import re
 import logging
 from collections.abc import Generator
 from typing import Optional, Union, cast
-import tiktoken
+import subprocess
+import sys
+subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
 
+import tiktoken
 from openai import OpenAI
 from openai import Stream
 from openai.types import Completion
