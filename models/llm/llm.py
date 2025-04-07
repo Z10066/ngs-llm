@@ -1,3 +1,4 @@
+# Databricks notebook source
 import copy
 import json
 import logging
@@ -39,7 +40,7 @@ from ..constants import LLM_BASE_MODELS
 logger = logging.getLogger(__name__)
 
 
-class AzureOpenAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
+class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
     def _invoke(
         self,
         model: str,

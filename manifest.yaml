@@ -1,12 +1,12 @@
 version: 0.0.4
 type: plugin
 author: highwayns
-name: ngs-llm
+name: ngs_llm
 label:
-  en_US: ngs-llm
-  ja_JP: ngs-llm
-  zh_Hans: ngs-llm
-  pt_BR: ngs-llm
+  en_US: ngs_llm
+  ja_JP: ngs_llm
+  zh_Hans: ngs_llm
+  pt_BR: ngs_llm
 description:
   en_US: llm for nec generative api
   ja_JP: llm for nec generative api
@@ -20,7 +20,7 @@ resource:
       enabled: false
 plugins:
   models:
-    - provider/ngs-llm.yaml
+    - provider/ngs_llm.yaml
 meta:
   version: 0.0.1
   arch:

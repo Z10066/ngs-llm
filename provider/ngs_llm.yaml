@@ -6,7 +6,7 @@ extra:
     model_sources:
       - models/llm/llm.py
       - models/text_embedding/text_embedding.py
-    provider_source: provider/ngs-llm.py
+    provider_source: provider/ngs_llm.py
 help:
   title:
     en_US: Get your API key from Azure
@@ -268,7 +268,7 @@ models:
   text_embedding:
     predefined:
       - models/text_embedding/*.yaml
-provider: ngs-llm
+provider: ngs_llm
 supported_model_types:
   - llm
   - text-embedding
