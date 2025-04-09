@@ -1456,6 +1456,69 @@ LLM_BASE_MODELS = [
             ),
         ),
     ),
+    AzureBaseModel(
+        base_model_name="gemini-1.5-pro",  # 实际模型的唯一标识
+        entity=AIModelEntity(
+            model="gemini-1.5-pro",  # 显示的名称
+            label=I18nObject(
+                en_US="Gemini 1.5 Pro",
+            ),
+            model_type=ModelType.LLM,
+            features=[
+                ModelFeature.AGENT_THOUGHT,
+                ModelFeature.VISION,
+                ModelFeature.TOOL_CALL,
+                ModelFeature.STREAM_TOOL_CALL,
+                ModelFeature.DOCUMENT,
+                ModelFeature.VIDEO,
+                ModelFeature.AUDIO,
+            ],
+            fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
+            model_properties={
+                ModelPropertyKey.MODE: LLMMode.CHAT.value,
+                ModelPropertyKey.CONTEXT_SIZE: 2097152,  # 2M tokens
+            },
+            parameter_rules=[
+                ParameterRule(
+                    name="temperature",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+                ),
+                ParameterRule(
+                    name="top_p",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
+                ),
+                ParameterRule(
+                    name="top_k",
+                    label=I18nObject(
+                        zh_Hans="取样数量",
+                        en_US="Top k",
+                    ),
+                    type="int",
+                    help=I18nObject(
+                        en_US="Only sample from the top K options for each subsequent token.",
+                    ),
+                    required=False,
+                ),
+                ParameterRule(
+                    name="max_output_tokens",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
+                    default=8192,
+                    min=1,
+                    max=8192,
+                ),
+                ParameterRule(
+                    name="json_schema",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
+                ),
+            ],
+            pricing=PriceConfig(
+                input=0.00,
+                output=0.00,
+                unit=0.000001,
+                currency="USD",
+            ),
+        ),
+    ),    
 ]
 EMBEDDING_BASE_MODELS = [
     AzureBaseModel(
