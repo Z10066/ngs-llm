@@ -1,4 +1,6 @@
 # Databricks notebook source
+# Databricks notebook source
+# Databricks notebook source
 from pydantic import BaseModel
 
 from dify_plugin.entities.model.llm import LLMMode
@@ -1456,373 +1458,382 @@ LLM_BASE_MODELS = [
             ),
         ),
     ),
-  AzureBaseModel(
-    base_model_name="gemini-1.5-pro", # 
-    entity=AIModelEntity(
-      model="fake-deployment-name", # 
-      label=I18nObject(
-        en_US="fake-deployment-name-label",
-      ),
-      model_type=ModelType.LLM,
-      features=[
-        ModelFeature.AGENT_THOUGHT,
-        ModelFeature.VISION,
-        ModelFeature.TOOL_CALL,
-        ModelFeature.STREAM_TOOL_CALL,
-        ModelFeature.DOCUMENT,
-        ModelFeature.VIDEO,
-        ModelFeature.AUDIO,
-      ],
-      fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
-      model_properties={
-        ModelPropertyKey.MODE: LLMMode.CHAT.value,
-        ModelPropertyKey.CONTEXT_SIZE: 2097152, # 2M tokens
-      },
-      parameter_rules=[
-        ParameterRule(
-          name="temperature",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+    AzureBaseModel(
+        base_model_name="gemini-1.5-pro", # 
+        entity=AIModelEntity(
+            model="fake-deployment-name", # 
+            label=I18nObject(
+                en_US="fake-deployment-name-label",
+            ),
+            model_type=ModelType.LLM,
+            features=[
+                ModelFeature.AGENT_THOUGHT,
+                ModelFeature.VISION,
+                ModelFeature.TOOL_CALL,
+                ModelFeature.STREAM_TOOL_CALL,
+                ModelFeature.DOCUMENT,
+                ModelFeature.VIDEO,
+                ModelFeature.AUDIO,
+            ],
+            fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
+            model_properties={
+                ModelPropertyKey.MODE: LLMMode.CHAT.value,
+                ModelPropertyKey.CONTEXT_SIZE: 2097152, # 2M tokens
+            },
+            parameter_rules=[
+                ParameterRule(
+                    name="temperature",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+                ),
+                ParameterRule(
+                    name="top_p",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
+                ),
+                ParameterRule(
+                    name="top_k",
+                    label=I18nObject(
+                        zh_Hans="",
+                        en_US="Top k",
+                    ),
+                    type="int",
+                    help=I18nObject(
+                        en_US="Only sample from the top K options for each subsequent token.",
+                    ),
+                    required=False,
+                ),
+                ParameterRule(
+                    name="max_output_tokens",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
+                ),
+                ParameterRule(
+                    name="json_schema",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
+                ),
+            ],
+            pricing=PriceConfig(
+                input=0.00,
+                output=0.00,
+                unit=0.000001,
+                currency="USD",
+            ),
         ),
-        ParameterRule(
-          name="top_p",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
-        ),
-        ParameterRule(
-          name="top_k",
-          label=I18nObject(
-            zh_Hans="",
-            en_US="Top k",
-          ),
-          type="int",
-          help=I18nObject(
-            en_US="Only sample from the top K options for each subsequent token.",
-          ),
-          required=False,
-        ),
-        ParameterRule(
-          name="max_output_tokens",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
-        ),
-        ParameterRule(
-          name="json_schema",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
-        ),
-      ],
-      pricing=PriceConfig(
-        input=0.00,
-        output=0.00,
-        unit=0.000001,
-        currency="USD",
-      ),
     ),
-  ),
-  AzureBaseModel(
-    base_model_name="nec-llm",
-    entity=AIModelEntity(
-      model="nec-llm",
-      label=I18nObject(
-        en_US="nec-llm",
-        ja_JP="nec-llm",
-      ),
-      model_type=ModelType.LLM,
-      features=[
-        ModelFeature.AGENT_THOUGHT,
-        ModelFeature.TOOL_CALL,
-        ModelFeature.STREAM_TOOL_CALL,
-      ],
-      fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
-      model_properties={
-        ModelPropertyKey.MODE: LLMMode.CHAT.value,
-        ModelPropertyKey.CONTEXT_SIZE: 2097152,
-      },
-      parameter_rules=[
-        ParameterRule(
-          name="temperature",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+    AzureBaseModel(
+        base_model_name="nec-llm",
+        entity=AIModelEntity(
+            model="nec-llm",
+            label=I18nObject(
+                en_US="nec-llm",
+                ja_JP="nec-llm",
+            ),
+            model_type=ModelType.LLM,
+            features=[
+                ModelFeature.AGENT_THOUGHT,
+                ModelFeature.TOOL_CALL,
+                ModelFeature.STREAM_TOOL_CALL,
+            ],
+            fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
+            model_properties={
+                ModelPropertyKey.MODE: LLMMode.CHAT.value,
+                ModelPropertyKey.CONTEXT_SIZE: 2097152,
+            },
+            parameter_rules=[
+                ParameterRule(
+                    name="temperature",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+                ),
+                ParameterRule(
+                    name="top_p",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
+                ),
+                ParameterRule(
+                    name="presence_penalty",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.PRESENCE_PENALTY],
+                ),
+                ParameterRule(
+                    name="frequency_penalty",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.FREQUENCY_PENALTY],
+                ),
+                ParameterRule(
+                    name="max_tokens",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
+                ),
+                ParameterRule(
+                    name="response_format",
+                    label=I18nObject(
+                        en_US="response_format",
+                        ja_JP="response_format",
+                    ),
+                    type="string",
+                    help=I18nObject(
+                        en_US="response_format",
+                        ja_JP="response_format",
+                    ),
+                    required=False,
+                    options=["text", "json_object", "json_schema"],
+                ),
+                ParameterRule(
+                    name="json_schema",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
+                ),
+            ],
+            pricing=PriceConfig(
+                input=3.00,
+                output=10.00,
+                unit=0.000001,
+                currency="JPY",
+            ),
         ),
-        ParameterRule(
-          name="top_p",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
-        ),
-        ParameterRule(
-          name="presence_penalty",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.PRESENCE_PENALTY],
-        ),
-        ParameterRule(
-          name="frequency_penalty",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.FREQUENCY_PENALTY],
-        ),
-        ParameterRule(
-          name="max_tokens",
-        ),
-        ParameterRule(
-          name="response_format",
-          label=I18nObject(
-          ja_JP="",
-          ),
-          type="string",
-          help=I18nObject(
-          ja_JP="",
-          ),
-          required=False,
-          options=["text", "json_object", "json_schema"],
-          ),
-          ParameterRule(
-          name="json_schema",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
-        ),
-      ],
-      pricing=PriceConfig(
-        input=3.00,
-        output=10.00,
-        unit=0.000001,
-        currency="JPY",
-      ),
     ),
-  ),
-  AzureBaseModel(
-    base_model_name="cotomi-pro",
-    entity=AIModelEntity(
-      model="cotomi-pro",
-      label=I18nObject(
-      en_US="Cotomi Pro",
-      ja_JP="Cotomi Pro",
+    AzureBaseModel(
+        base_model_name="cotomi-pro",
+        entity=AIModelEntity(
+            model="cotomi-pro",
+            label=I18nObject(
+                en_US="Cotomi Pro",
+                ja_JP="Cotomi Pro",
+            ),
+            model_type=ModelType.LLM,
+            features=[
+                ModelFeature.AGENT_THOUGHT,
+                ModelFeature.TOOL_CALL,
+                ModelFeature.STREAM_TOOL_CALL,
+            ],
+            fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
+            model_properties={
+                ModelPropertyKey.MODE: LLMMode.CHAT.value,
+                ModelPropertyKey.CONTEXT_SIZE: 2097152,
+            },
+            parameter_rules=[
+                ParameterRule(
+                    name="temperature",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+                ),
+                ParameterRule(
+                    name="top_p",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
+                ),
+                ParameterRule(
+                    name="presence_penalty",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.PRESENCE_PENALTY],
+                ),
+                ParameterRule(
+                    name="frequency_penalty",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.FREQUENCY_PENALTY],
+                ),
+                ParameterRule(
+                    name="max_tokens",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
+                ),
+                ParameterRule(
+                    name="response_format",
+                    label=I18nObject(
+                        en_US="response_format",
+                        ja_JP="response_format",
+                    ),
+                    type="string",
+                    help=I18nObject(
+                        en_US="response_format",
+                        ja_JP="response_format",
+                    ),
+                    required=False,
+                    options=["text", "json_object", "json_schema"],
+                ),
+                ParameterRule(
+                    name="json_schema",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
+                ),
+            ],
+            pricing=PriceConfig(
+            input=7.00, 
+            output=20.00, 
+            unit=0.000001,
+            currency="JPY",
+            ),
+        ),
     ),
-    model_type=ModelType.LLM,
-    features=[
-      ModelFeature.AGENT_THOUGHT,
-      ModelFeature.TOOL_CALL,
-      ModelFeature.STREAM_TOOL_CALL,
-    ],
-    fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
-    model_properties={
-      ModelPropertyKey.MODE: LLMMode.CHAT.value,
-      ModelPropertyKey.CONTEXT_SIZE: 2097152,
-    },
-    parameter_rules=[
-      ParameterRule(
-        name="temperature",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
-      ),
-      ParameterRule(
-        name="top_p",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
-      ),
-      ParameterRule(
-        name="presence_penalty",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.PRESENCE_PENALTY],
-      ),
-      ParameterRule(
-        name="frequency_penalty",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.FREQUENCY_PENALTY],
-      ),
-      ParameterRule(
-        name="max_tokens",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
-      ),
-      ParameterRule(
-        name="response_format",
-        label=I18nObject(
-        ja_JP="",
-      ),
-        type="string",
-        help=I18nObject(
-        ja_JP="",
-      ),
-        required=False,
-        options=["text", "json_object", "json_schema"],
-      ),
-      ParameterRule(
-        name="json_schema",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
-      ),
-    ],
-    pricing=PriceConfig(
-      input=7.00, 
-      output=20.00, 
-      unit=0.000001,
-      currency="JPY",
-      ),
+    AzureBaseModel(
+        base_model_name="gemini-2.0-flash",
+        entity=AIModelEntity(
+            model="gemini-2.0-flash",
+            label=I18nObject(
+                en_US="Gemini 2.0 Flash",
+                ja_JP="Gemini 2.0 Flash",
+            ),
+            model_type=ModelType.LLM,
+            features=[
+                ModelFeature.AGENT_THOUGHT,
+                ModelFeature.TOOL_CALL,
+                ModelFeature.STREAM_TOOL_CALL,
+                ModelFeature.VISION,
+                ModelFeature.DOCUMENT,
+                ModelFeature.VIDEO,
+                ModelFeature.AUDIO,
+            ],
+            fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
+            model_properties={
+                ModelPropertyKey.MODE: LLMMode.CHAT.value,
+                ModelPropertyKey.CONTEXT_SIZE: 2097152, # 2M tokens
+            },
+            parameter_rules=[
+                ParameterRule(
+                    name="temperature",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+                ),
+                ParameterRule(
+                    name="top_p",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
+                ),
+                ParameterRule(
+                    name="top_k",
+                    label=I18nObject(
+                        en_US="top_k",
+                        ja_JP="top_k",
+                    ),
+                    type="int",
+                    help=I18nObject(
+                        en_US="top_k",
+                        ja_JP="top_k",
+                    ),
+                    required=False,
+                ),
+                ParameterRule(
+                    name="max_output_tokens",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
+                ),
+                ParameterRule(
+                    name="json_schema",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
+                ),
+            ],
+            pricing=PriceConfig(
+                input=0.00,
+                output=0.00,
+                unit=0.000001,
+                currency="USD",
+            ),
+        ),
     ),
-  ),
-  AzureBaseModel(
-    base_model_name="gemini-2.0-flash",
-    entity=AIModelEntity(
-    model="gemini-2.0-flash",
-    label=I18nObject(
-      en_US="Gemini 2.0 Flash",
-      ja_JP="Gemini 2.0 Flash",
+    AzureBaseModel(
+        base_model_name="claude-3-haiku",
+        entity=AIModelEntity(
+            model="claude-3-haiku",
+            label=I18nObject(
+                en_US="Claude 3 Haiku",
+                ja_JP="Claude 3 Haiku",
+            ),
+            model_type=ModelType.LLM,
+            features=[
+                ModelFeature.AGENT_THOUGHT,
+                ModelFeature.TOOL_CALL,
+                ModelFeature.STREAM_TOOL_CALL,
+                ModelFeature.VISION,
+                ModelFeature.DOCUMENT,
+            ],
+            fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
+            model_properties={
+                ModelPropertyKey.MODE: LLMMode.CHAT.value,
+                ModelPropertyKey.CONTEXT_SIZE: 4096,
+            },
+            parameter_rules=[
+                ParameterRule(
+                    name="temperature",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+                ),
+                ParameterRule(
+                    name="top_p",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
+                ),
+                ParameterRule(
+                    name="top_k",
+                    label=I18nObject(
+                        en_US="top_k",
+                        ja_JP="top_k",
+                    ),
+                    type="int",
+                    help=I18nObject(
+                        en_US="top_k",
+                        ja_JP="top_k",
+                    ),
+                    required=False,
+                ),
+                ParameterRule(
+                    name="max_tokens",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
+                ),
+                ParameterRule(
+                    name="response_format",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.RESPONSE_FORMAT],
+                ),
+            ],
+            pricing=PriceConfig(
+            input=0.25,
+            output=1.25,
+            unit=0.000001,
+            currency="JPY",
+            ),
+        ),
     ),
-    model_type=ModelType.LLM,
-    features=[
-      ModelFeature.AGENT_THOUGHT,
-      ModelFeature.TOOL_CALL,
-      ModelFeature.STREAM_TOOL_CALL,
-      ModelFeature.VISION,
-      ModelFeature.DOCUMENT,
-      ModelFeature.VIDEO,
-      ModelFeature.AUDIO,
-    ],
-    fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
-    model_properties={
-      ModelPropertyKey.MODE: LLMMode.CHAT.value,
-      ModelPropertyKey.CONTEXT_SIZE: 2097152, # 2M tokens
-    },
-    parameter_rules=[
-      ParameterRule(
-        name="temperature",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
-      ),
-      ParameterRule(
-        name="top_p",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
-      ),
-      ParameterRule(
-        name="top_k",
-        label=I18nObject(
-        ja_JP="",
-      ),
-        type="int",
-        help=I18nObject(
-        ja_JP=" K ",
-      ),
-      required=False,
-      ),
-      ParameterRule(
-        name="max_output_tokens",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
-      ),
-      ParameterRule(
-        name="json_schema",
-        **PARAMETER_RULE_TEMPLATE[DefaultParameterName.JSON_SCHEMA],
-      ),
-    ],
-    pricing=PriceConfig(
-      input=0.00,
-      output=0.00,
-      unit=0.000001,
-      currency="USD",
-      ),
+    AzureBaseModel(
+        base_model_name="claude-3.5-sonnet",
+        entity=AIModelEntity(
+            model="claude-3.5-sonnet",
+            label=I18nObject(
+                en_US="Claude 3.5 Sonnet",
+                ja_JP="Claude 3.5 Sonnet",
+            ),
+            model_type=ModelType.LLM,
+            features=[
+                ModelFeature.AGENT_THOUGHT,
+                ModelFeature.TOOL_CALL,
+                ModelFeature.STREAM_TOOL_CALL,
+                ModelFeature.VISION,
+                ModelFeature.DOCUMENT,
+            ],
+            fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
+            model_properties={
+                ModelPropertyKey.MODE: LLMMode.CHAT.value,
+                ModelPropertyKey.CONTEXT_SIZE: 8192,
+            },
+            parameter_rules=[
+                ParameterRule(
+                    name="temperature",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
+                ),
+                ParameterRule(
+                    name="top_p",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
+                ),
+                ParameterRule(
+                    name="top_k",
+                    label=I18nObject(
+                        en_US="top_k",
+                        ja_JP="top_k",
+                    ),
+                    type="int",
+                    help=I18nObject(
+                        en_US="top_k",
+                        ja_JP="top_k",
+                    ),
+                    required=False,
+                ),
+                ParameterRule(
+                    name="max_tokens",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
+                ),
+                ParameterRule(
+                    name="response_format",
+                    **PARAMETER_RULE_TEMPLATE[DefaultParameterName.RESPONSE_FORMAT],
+                ),
+            ],
+            pricing=PriceConfig(
+                input=3.00,
+                output=15.00,
+                unit=0.000001,
+                currency="JPY",
+            ),
+        ),
     ),
-  ),
-  AzureBaseModel(
-    base_model_name="claude-3-haiku",
-    entity=AIModelEntity(
-      model="claude-3-haiku",
-      label=I18nObject(
-        en_US="Claude 3 Haiku",
-        ja_JP="Claude 3 Haiku",
-      ),
-      model_type=ModelType.LLM,
-      features=[
-        ModelFeature.AGENT_THOUGHT,
-        ModelFeature.TOOL_CALL,
-        ModelFeature.STREAM_TOOL_CALL,
-        ModelFeature.VISION,
-        ModelFeature.DOCUMENT,
-      ],
-      fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
-      model_properties={
-        ModelPropertyKey.MODE: LLMMode.CHAT.value,
-        ModelPropertyKey.CONTEXT_SIZE: 4096,
-      },
-      parameter_rules=[
-        ParameterRule(
-          name="temperature",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
-        ),
-        ParameterRule(
-          name="top_p",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
-        ),
-        ParameterRule(
-          name="top_k",
-          label=I18nObject(
-            ja_JP=" K",
-          ),
-          type="int",
-          help=I18nObject(
-            ja_JP=" K ",
-          ),
-          required=False,
-        ),
-        ParameterRule(
-          name="max_tokens",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
-          required=True,
-        ),
-        ParameterRule(
-          name="response_format",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.RESPONSE_FORMAT],
-        ),
-      ],
-    pricing=PriceConfig(
-      input=0.25,
-      output=1.25,
-      unit=0.000001,
-      currency="JPY",
-      ),
-    ),
-  ),
-  AzureBaseModel(
-    base_model_name="claude-3.5-sonnet",
-    entity=AIModelEntity(
-      model="claude-3.5-sonnet",
-      label=I18nObject(
-        en_US="Claude 3.5 Sonnet",
-        ja_JP="Claude 3.5 Sonnet",
-      ),
-      model_type=ModelType.LLM,
-      features=[
-        ModelFeature.AGENT_THOUGHT,
-        ModelFeature.TOOL_CALL,
-        ModelFeature.STREAM_TOOL_CALL,
-        ModelFeature.VISION,
-        ModelFeature.DOCUMENT,
-      ],
-      fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
-      model_properties={
-        ModelPropertyKey.MODE: LLMMode.CHAT.value,
-        ModelPropertyKey.CONTEXT_SIZE: 8192,
-      },
-      parameter_rules=[
-        ParameterRule(
-          name="temperature",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TEMPERATURE],
-        ),
-        ParameterRule(
-          name="top_p",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.TOP_P],
-        ),
-        ParameterRule(
-          name="top_k",
-          label=I18nObject(
-            ja_JP=" K",
-          ),
-          type="int",
-          help=I18nObject(
-            ja_JP=" K ",
-          ),
-          required=False,
-        ),
-        ParameterRule(
-          name="max_tokens",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.MAX_TOKENS],
-          required=True,
-        ),
-        ParameterRule(
-          name="response_format",
-          **PARAMETER_RULE_TEMPLATE[DefaultParameterName.RESPONSE_FORMAT],
-        ),
-      ],
-      pricing=PriceConfig(
-        input=3.00,
-        output=15.00,
-        unit=0.000001,
-        currency="JPY",
-      ),
-    ),
-  ),
        
 ]
 EMBEDDING_BASE_MODELS = [
