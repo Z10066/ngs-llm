@@ -236,6 +236,41 @@ model_credential_schema:
             - value: llm
               variable: __model_type
           value: gemini-1.5-pro
+
+        - label:
+            en_US: Nec llm
+          show_on:
+            - value: llm
+              variable: __model_type
+          value: nec-llm
+
+        - label:
+            en_US: Cotomi pro
+          show_on:
+            - value: llm
+              variable: __model_type
+          value: cotomi-pro
+
+        - label:
+            en_US: Claude v3Haiku
+          show_on:
+            - value: llm
+              variable: __model_type
+          value: claude-v3haiku
+
+        - label:
+            en_US: Claude v3.5Sonnet
+          show_on:
+            - value: llm
+              variable: __model_type
+          value: claude-v3.5sonnet
+        
+        - label:
+            en_US: Gemini 2.0 Flash
+          show_on:
+            - value: llm
+              variable: __model_type
+          value: gemini-2.0-flash
         - label:
             en_US: text-embedding-ada-002
           show_on:
