@@ -82,6 +82,44 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
                 stream=stream,
                 user=user,
             )
+    # 模型能力映射表与自动适配工具函数（重构合并部分）
+    MODEL_CAPABILITIES = {
+        "openai4o": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "cl100k_base"},
+        "openai4-turbo": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "cl100k_base"},
+        "openaio1": {"chat": True, "completion": False, "stream": False, "tool_call": True, "function_call": True, "json_schema": False, "system_prompt": False, "image": False, "tokenizer": "cl100k_base"},
+        "openaio1-mini": {"chat": True, "completion": False, "stream": False, "tool_call": False, "function_call": True, "json_schema": False, "system_prompt": False, "image": False, "tokenizer": "cl100k_base"},
+        "nec-llm": {"chat": True, "completion": True, "stream": False, "tool_call": False, "function_call": False, "json_schema": False, "system_prompt": True, "image": False, "tokenizer": "auto"},
+        "cotomi-pro": {"chat": True, "completion": False, "stream": False, "tool_call": False, "function_call": False, "json_schema": False, "system_prompt": True, "image": False, "tokenizer": "auto"},
+        "claude-v3haiku": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": False, "system_prompt": True, "image": True, "tokenizer": "claude"},
+        "claude-v3.5sonnet": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "claude"},
+        "gemini-1.5-pro": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "gemini"},
+        "gemini-2.0-flash": {"chat": True, "completion": False, "stream": True, "tool_call": False, "function_call": False, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "gemini"},
+    }
+
+    def get_model_capability(model_name: str, capability: str) -> bool:
+        return MODEL_CAPABILITIES.get(model_name, {}).get(capability, False)
+
+    def clean_parameters_for_model(model_name: str, parameters: dict) -> dict:
+        capabilities = MODEL_CAPABILITIES.get(model_name, {})
+        cleaned = parameters.copy()
+        if not capabilities.get("stream"):
+            cleaned["stream"] = False
+        if not capabilities.get("json_schema"):
+            cleaned.pop("json_schema", None)
+            if cleaned.get("response_format") == "json_schema":
+                cleaned.pop("response_format", None)
+        if not capabilities.get("tool_call"):
+            cleaned.pop("tools", None)
+        return cleaned
+
+    def get_tokenizer_name(model_name: str) -> str:
+        return MODEL_CAPABILITIES.get(model_name, {}).get("tokenizer", "cl100k_base")
+
+    # ✅ 请在 _chat_generate 方法内调用：
+    # model_parameters = clean_parameters_for_model(base_model_name, model_parameters)
+
+    # ✅ 请在 _num_tokens_from_string 与 _num_tokens_from_messages 中替换 tiktoken.encoding_for_model 为：
+    # encoding = tiktoken.get_encoding(get_tokenizer_name(base_model_name))
 
     def get_num_tokens(
         self,
@@ -289,7 +327,8 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
     ) -> Union[LLMResult, Generator]:
         base_model_name = self._get_base_model_name(credentials)
         client = AzureOpenAI(**self._to_credential_kwargs(credentials))
-        response_format = model_parameters.get("response_format")
+        model_parameters = self.clean_parameters_for_model(base_model_name, model_parameters)
+        '''response_format = model_parameters.get("response_format")
         if response_format:
             if response_format == "json_schema":
                 json_schema = model_parameters.get("json_schema")
@@ -310,6 +349,7 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
                 model_parameters["response_format"] = {"type": response_format}
         elif "json_schema" in model_parameters:
             del model_parameters["json_schema"]
+        '''
         extra_model_kwargs = {}
         if tools:
             extra_model_kwargs["tools"] = [
@@ -333,6 +373,7 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
                         del extra_model_kwargs["stream_options"]
             if "stop" in extra_model_kwargs:
                 del extra_model_kwargs["stop"]
+                
         response = client.chat.completions.create(
             messages=[self._convert_prompt_message_to_dict(m) for m in prompt_messages],
             model=model,
@@ -653,7 +694,8 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
         tools: Optional[list[PromptMessageTool]] = None,
     ) -> int:
         try:
-            encoding = tiktoken.encoding_for_model(credentials["base_model_name"])
+            #encoding = tiktoken.encoding_for_model(credentials["base_model_name"])
+            encoding = tiktoken.get_encoding(self.get_tokenizer_name(credentials["base_model_name"]))
         except KeyError:
             encoding = tiktoken.get_encoding("cl100k_base")
         num_tokens = len(encoding.encode(text))
@@ -675,7 +717,8 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
         if model.startswith(("o1", "o3", "gpt-4.5")):
             model = "gpt-4o"
         try:
-            encoding = tiktoken.encoding_for_model(model)
+            #encoding = tiktoken.encoding_for_model(model)
+            encoding = tiktoken.get_encoding(self.get_tokenizer_name(model))
         except KeyError:
             logger.warning("Warning: model not found. Using cl100k_base encoding.")
             model = "cl100k_base"
