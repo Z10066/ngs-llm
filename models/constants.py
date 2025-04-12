@@ -1,6 +1,3 @@
-# Databricks notebook source
-# Databricks notebook source
-# Databricks notebook source
 from pydantic import BaseModel
 
 from dify_plugin.entities.model.llm import LLMMode
@@ -1715,12 +1712,12 @@ LLM_BASE_MODELS = [
         ),
     ),
     AzureBaseModel(
-        base_model_name="claude-3-haiku",
+        base_model_name="claude-v3haiku",
         entity=AIModelEntity(
-            model="claude-3-haiku",
+            model="claude-v3haiku",
             label=I18nObject(
-                en_US="Claude 3 Haiku",
-                ja_JP="Claude 3 Haiku",
+                en_US="Claude V3Haiku",
+                ja_JP="Claude V3Haiku",
             ),
             model_type=ModelType.LLM,
             features=[
@@ -1775,12 +1772,12 @@ LLM_BASE_MODELS = [
         ),
     ),
     AzureBaseModel(
-        base_model_name="claude-3.5-sonnet",
+        base_model_name="claude-v3.5sonnet",
         entity=AIModelEntity(
-            model="claude-3.5-sonnet",
+            model="claude-v3.5sonnet",
             label=I18nObject(
-                en_US="Claude 3.5 Sonnet",
-                ja_JP="Claude 3.5 Sonnet",
+                en_US="Claude V3.5Sonnet",
+                ja_JP="Claude V3.5Sonnet",
             ),
             model_type=ModelType.LLM,
             features=[

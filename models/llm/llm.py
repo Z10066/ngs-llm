@@ -1,4 +1,5 @@
 # Databricks notebook source
+# Databricks notebook source
 import copy
 import json
 import logging
@@ -321,10 +322,10 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
             extra_model_kwargs["user"] = user
         prompt_messages = self._clear_illegal_prompt_messages(base_model_name, prompt_messages)
         block_as_stream = False
-        if base_model_name.startswith(("o1", "o3")):
+        if base_model_name.startswith(("o1", "o3", "claude")):
             # o1 and o1-* do not support streaming
             # https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/reasoning#api--feature-support
-            if base_model_name.startswith("o1"):
+            if base_model_name.startswith("o1", "claude"):
                 if stream:
                     block_as_stream = True
                     stream = False
