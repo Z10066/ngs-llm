@@ -85,16 +85,16 @@ class NgsLLMAILargeLanguageModel(_CommonAzureOpenAI, LargeLanguageModel):
     # 模型能力映射表与自动适配工具函数（重构合并部分）
     MODEL_CAPABILITIES = {
         "openai4o": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "cl100k_base"},
-        "openai4-turbo": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "cl100k_base"},
-        "openaio1": {"chat": True, "completion": False, "stream": False, "tool_call": True, "function_call": True, "json_schema": False, "system_prompt": False, "image": False, "tokenizer": "cl100k_base"},
+        "openai4-turbo": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": False, "tokenizer": "cl100k_base"},
+        "openaio1": {"chat": True, "completion": False, "stream": False, "tool_call": True, "function_call": True, "json_schema": False, "system_prompt": False, "image": True, "tokenizer": "cl100k_base"},
         "openaio1-mini": {"chat": True, "completion": False, "stream": False, "tool_call": False, "function_call": True, "json_schema": False, "system_prompt": False, "image": False, "tokenizer": "cl100k_base"},
-        "nec-llm": {"chat": True, "completion": True, "stream": False, "tool_call": False, "function_call": False, "json_schema": False, "system_prompt": True, "image": False, "tokenizer": "auto"},
-        "cotomi-pro": {"chat": True, "completion": False, "stream": False, "tool_call": False, "function_call": False, "json_schema": False, "system_prompt": True, "image": False, "tokenizer": "auto"},
-        "claude-v3haiku": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": False, "system_prompt": True, "image": True, "tokenizer": "claude"},
-        "claude-v3.5sonnet": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "claude"},
+        "nec-llm": {"chat": True, "completion": True, "stream": True, "tool_call": False, "function_call": False, "json_schema": False, "system_prompt": True, "image": False, "tokenizer": "auto"},
+        "cotomi-pro": {"chat": True, "completion": False, "stream": True, "tool_call": False, "function_call": False, "json_schema": False, "system_prompt": True, "image": False, "tokenizer": "auto"},
+        "claude-v3haiku": {"chat": True, "completion": False, "stream": False, "tool_call": True, "function_call": True, "json_schema": False, "system_prompt": True, "image": False, "tokenizer": "claude"},
+        "claude-v3.5sonnet": {"chat": True, "completion": False, "stream": False, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": False, "tokenizer": "claude"},
         "gemini-1.5-pro": {"chat": True, "completion": False, "stream": True, "tool_call": True, "function_call": True, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "gemini"},
         "gemini-2.0-flash": {"chat": True, "completion": False, "stream": True, "tool_call": False, "function_call": False, "json_schema": True, "system_prompt": True, "image": True, "tokenizer": "gemini"},
-    }
+        }
 
     def get_model_capability(model_name: str, capability: str) -> bool:
         return MODEL_CAPABILITIES.get(model_name, {}).get(capability, False)
